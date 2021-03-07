@@ -42,11 +42,21 @@ def min(n, n2)
   end
 end
 
+# true если число просто, false иначе
+def is_s1mple(v)
+  for i in 2..v-1 do
+    if v % i == 0
+      return false
+    end
+  end
+  return true
+end
+
 # наибольший простой делитель
 def maxd(v)
   maxdel = 1
   for i in 2..v-1 do
-    if v % i == 0 and i.prime? == true and i > maxdel then
+    if v % i == 0 and is_prime(i) == true and i > maxdel then
       maxdel = i
     end
   end
@@ -66,15 +76,25 @@ def proizvd(n)
   end
 end
 
+def nod(a, b)
+    while a != b:
+        if a > b
+            a = a - b
+        else
+            b = b - a 
+        end       
+    return a
+end
+
 # НОД максимального нечетного непростого делителя числа и прозведения цифр данного числа.
 def f(num)
   max_d = 1
   for i in 1..num do
-    if num % i == 0 and i.prime? == false and i > max_d and i % 2 > 0
+    if num % i == 0 and is_simple(i) == false and i > max_d and i % 2 > 0
       max_d = i
     end
   end
-  return i.gcd mn(num)
+  return nod(max_d, mn(num))
 end
 
 def main(v, num)
