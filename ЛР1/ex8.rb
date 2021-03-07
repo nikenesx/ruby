@@ -77,8 +77,16 @@ def f(num)
   return i.gcd mn(num)
 end
 
+def abt(num)
+  puts "1. Сумма цифр числа\n2. Произведение цифр числа\n3. Минимальная цифра числа
+4. максимальная цифра числа\n5. Наибольший простой делитель\n6. Произведение цифр числа, не делящихся на 5
+7. НОД максимального нечетного непростого делителя числа и прозведения цифр данного числа\nВведите параметр: "
+  v = gets.chomp
+  main(v, num)
+end
+
 def main(v, num)
-  case v
+  case v.to_str
   when '1'
     puts sum(num)
   when '2'
@@ -93,15 +101,21 @@ def main(v, num)
     puts proizvd(num)
   when '7'
     puts f(num)
+  when '-h'
+    abt(num)
   else
-    puts "Hello world"
+    abt(num)
   end
+  gets
 end
 
-puts "Введите число: \r"
+
+print "Введите число: "
 num = gets.to_i
 
-puts "Введите параметр: "
+
+print "Введите параметр: "
 v = gets.chomp
+
 main(v, num)
 
