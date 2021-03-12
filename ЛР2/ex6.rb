@@ -8,7 +8,7 @@ def keyarr(n)
 end
 
 def n27(arr)
-  array.push(array.shift)
+  arr.push(arr.shift)
 end
 
 arr = Array.new
