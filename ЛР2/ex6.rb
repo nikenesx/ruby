@@ -7,12 +7,12 @@ def keyarr(n)
   Array.new(n){ |index| gets}
 end
 
-def n3(i, arr)
-  arr[i] == a.max
+def n15(i, arr)
+  arr[i] == arr.min
 end
 
 arr = Array.new
-print "1. Считать список из файла\n2. Ввод с клавиатуры\n->"
+print "1. Считать список из файла\n2. Ввод с клавиатуры\n-> "
 n = gets.to_i
 case n
 when 1
@@ -30,5 +30,5 @@ end
 
 print "Введите индекс элемента-> "
 i = gets.to_i
-puts n3(i, arr)
+puts n15(i, arr)
 
