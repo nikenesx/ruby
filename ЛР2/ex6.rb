@@ -7,6 +7,24 @@ def keyarr(n)
   Array.new(n){ |index| gets}
 end
 
+def n3(i, arr)
+  arr[i] == a.max
+end
+
+def n15(i, arr)
+  arr[i] == arr.min
+end
+
+def n27(arr)
+  arr.push(arr.shift)
+end
+
+def n39(arr)
+  arr.each_index { |i| puts arr[i] if i % 2 == 0}
+  puts
+  arr.each_index { |i| puts arr[i] if i % 2 > 0}
+end
+
 def n51(arr)
   l1 = Array.new + arr.uniq
   l2 = Array.new
@@ -31,5 +49,4 @@ else
   puts "Ошибка"
 end
 
-n51(arr)
 
