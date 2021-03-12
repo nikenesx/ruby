@@ -30,12 +30,16 @@ def var4(n)
   Array.new | st.split(" ")
 end
 
+def var5(n)
+  Array.new(n){ |index| gets}
+end
+
 print("Введите количество элементов массива-> ")
 n = gets.to_i
 
 #arr = var1(n)
 #arr = var2(n)
 #arr = var3(n)
-arr = var4(n)
-#arr = var5(n)
+#arr = var4(n)
+arr = var5(n)
 puts arr
