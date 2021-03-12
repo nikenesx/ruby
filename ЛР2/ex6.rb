@@ -7,8 +7,8 @@ def keyarr(n)
   Array.new(n){ |index| gets}
 end
 
-def n15(i, arr)
-  arr[i] == arr.min
+def n27(arr)
+  array.push(array.shift)
 end
 
 arr = Array.new
@@ -28,7 +28,5 @@ else
   puts "Ошибка"
 end
 
-print "Введите индекс элемента-> "
-i = gets.to_i
-puts n15(i, arr)
+puts n27(arr)
 
