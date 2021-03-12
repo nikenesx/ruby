@@ -7,10 +7,11 @@ def keyarr(n)
   Array.new(n){ |index| gets}
 end
 
-def n39(arr)
-  arr.each_index { |i| puts arr[i] if i % 2 == 0}
-  puts
-  arr.each_index { |i| puts arr[i] if i % 2 > 0}
+def n51(arr)
+  l1 = Array.new + arr.uniq
+  l2 = Array.new
+  l1.find_all {|elem| l2.push(arr.count(elem))}
+  puts l1, "\n", l2
 end
 
 arr = Array.new
@@ -30,5 +31,5 @@ else
   puts "Ошибка"
 end
 
-n39(arr)
+n51(arr)
 
