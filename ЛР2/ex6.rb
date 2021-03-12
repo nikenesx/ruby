@@ -7,8 +7,10 @@ def keyarr(n)
   Array.new(n){ |index| gets}
 end
 
-def n27(arr)
-  arr.push(arr.shift)
+def n39(arr)
+  arr.each_index { |i| puts arr[i] if i % 2 == 0}
+  puts
+  arr.each_index { |i| puts arr[i] if i % 2 > 0}
 end
 
 arr = Array.new
@@ -28,5 +30,5 @@ else
   puts "Ошибка"
 end
 
-puts n27(arr)
+n39(arr)
 
