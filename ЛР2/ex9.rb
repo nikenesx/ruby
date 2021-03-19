@@ -6,6 +6,13 @@ def n0
 end
 
 def n3
-    line = "hello my dear friend Egor how are you".split(" ").sort_by { rand }
+    line = "Привет мой дорогой друг Егор как твои дела".split(" ").sort_by { rand }
     puts line
+end
+
+def n8
+    line = "посмотри на этот огромный мульный пузырь".split(" ")
+    sum = 0
+    line.each { |elem| sum = sum + 1 if elem.length % 2 == 0 }
+    puts sum
 end
