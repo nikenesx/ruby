@@ -11,8 +11,9 @@ def n3
 end
 
 def n8
-    line = "посмотри на этот огромный мульный пузырь".split(" ")
+    line = "посмотри на этот огромный мульный пузырь"
     sum = 0
-    line.each { |elem| sum = sum + 1 if elem.length % 2 == 0 }
+    line.each_line(' ') { |elem| sum = sum + 1 if elem.strip.length % 2 == 0 }
     puts sum
 end
+
