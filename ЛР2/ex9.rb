@@ -17,3 +17,9 @@ def n8
     puts sum
 end
 
+def n16
+    array = ["красный", "синий", "белый"].sort_by { rand }
+    array.sort!
+    array[1], array[2] = array[2], array[1]
+    puts array
+end
