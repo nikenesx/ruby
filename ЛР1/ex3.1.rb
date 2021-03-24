@@ -1,9 +1,16 @@
 puts "Какай ваш любимый язык?"
 language = gets
 puts language
-if language == "Ruby" then
-	puts "Не подлизывайся"
+case language
+when "ruby"
+    puts "Не подлизывайся"
+when "python"
+    puts "Слишком скучно, ruby его заменит"
+when "c++"
+    puts "Может и так, но с ruby интересней"
+when "pascal"
+    puts "o_O"
 else
-	puts "Неправильно, скоро вашим любимым языком станет Ruby"
+    "Ответ неверный! Скоро твоим любимым языком станет Ruby!"
 end
-gets
+
