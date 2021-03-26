@@ -31,3 +31,6 @@ x = -1.0
 x = x + 2.5 unless hk == 'up'
 gets
 
+y = 3
+puts "y = #{y}" if y == 3
+
