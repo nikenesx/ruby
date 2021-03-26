@@ -33,4 +33,12 @@ gets
 
 y = 3
 puts "y = #{y}" if y == 3
+gets
+
+a = -3
+b = 10
+c = 500
+x = if a > 0 then b
+	else c end
+gets
 
