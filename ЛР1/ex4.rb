@@ -1,14 +1,8 @@
-puts "Введите команду для Ruby: "
-command1 = gets
+print "Введите команду языка ruby: "
+c1 = gets
+puts (eval c1).to_s
 
-puts "Введите команду для OC: "
-command2 = gets
-
-if command1.include?("puts") == true then
-	command1 = command1.split(" ")
-	puts command1[1]
-end
-
-s2 =  `#{command2}" `
+print "Введите команду OC: "
+c2 = gets
+s2 =  `#{c2}`
 puts s2
-gets
