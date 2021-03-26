@@ -18,3 +18,10 @@ x = 3
 puts "x = 3" if x == 3
 gets
 
+value = 10
+unless value < 100 then
+    value = value + 20
+else
+    value = value + 100
+end
+
