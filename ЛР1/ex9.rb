@@ -1,82 +1,51 @@
+require 'prime'
 # сумма цифр числа
 def sum(n)
-  if n < 10 then
-    return n
-  else
-    return n%10 + sum(n/10)
-  end
+  sumDigits = 0
+  n.digits.map {|digit| sumDigits = sumDigits + digit}
+  sumDigits
 end
 
 # произведение цифр числа
 def mn(n)
-  if n < 10 
-    return n
-  else
-    return n%10 * mn(n/10)
-  end
+  mlDigits = 1
+  n.digits.map {|digit| mlDigits = mlDigits * digit}
+  mlDigits
 end
 
 # максимальная цифра числа
 def max(n, n2)
-  if n.zero?
-    return n2
-  end
-
-  if n % 10 > n2 
-    return max(n/10, n % 10)
-  else
-    return max(n/10, n2)
-  end
+  maxDigit = 1
+  n.digits.map {|digit| maxDigit = digit if maxDigit < digit}
+  maxDigit
 end
 
 # минимальная цифра числа
 def min(n, n2)
-  if n.zero?
-    return n2
-  end
-
-  if n % 10 < n2
-    return min(n/10, n % 10)
-  else
-    return min(n/10, n2)
-  end
+  minDigit = 9
+  n.digits.map {|digit| minDigit = digit if minDigit > digit}
+  minDigit
 end
 
 # наибольший простой делитель
 def maxd(v)
   maxdel = 1
-  i = 2
-  while i < v-1 do
-    if v % i == 0 and i.prime? == true and i > maxdel then
-      maxdel = i
-    end
-    i = i.next
-  end
-  return maxdel
+  v.times {|i| maxdel = i if v % (i + 1) == 0 and Prime.prime?(i + 1)}
+  maxdel + 1
 end
 
 # Найти произведение цифр числа, не делящихся на 5
 def proizvd(n)
-  if n < 10 and n != 5
-    return n
-  elsif n < 10 and n == 5
-    return 0
-  elsif n % 10 != 5
-    return n % 10 * proizvd(n / 10)
-  else
-    return proizvd(n / 10)
-  end
+  mlDig = 1
+  n.digits.map {|i| mlDig = mlDig * i if i % 5 > 0}
+  mlDig
 end
 
 # НОД максимального нечетного непростого делителя числа и прозведения цифр данного числа.
 def f(num)
-  max_d = 1
-  for i in 1..num do
-    if num % i == 0 and i.prime? == false and i > max_d and i % 2 > 0
-      max_d = i
-    end
-  end
-  return max_d.gcd mn(num)
+  maxd = 1
+  num.times {|i| maxd = i if (num % (i + 1) == 0) and (i + 1) % 2 > 0 and (i + 1) > maxd and !(Prime.prime?(i + 1))}
+  (maxd + 1).gcd mn(num)
 end
 
 def abt(num)
@@ -89,35 +58,38 @@ end
 
 def main(v, num)
   case v.to_str
-  when '1'
-    puts sum(num)
-  when '2'
-    puts mn(num)
-  when '3'
-    put min(num, 10)
-  when '4'
-    puts max(num, 0)
-  when '5'
-    puts maxd(num)
-  when '6'
-    puts proizvd(num)
-  when '7'
-    puts f(num)
-  when '-h'
-    abt(num)
-  else
-    abt(num)
+    when '1'
+      puts sum(num)
+    when '2'
+      puts mn(num)
+    when '3'
+      puts min(num, 10)
+    when '4'
+      puts max(num, 0)
+    when '5'
+      puts maxd(num)
+    when '6'
+      puts proizvd(num)
+    when '7'
+      puts f(num)
+    when '-h'
+      abt(num)
+    else
+      abt(num)
   end
-  gets
 end
 
-
-print "Введите число: "
+puts "Введите число: "
 num = gets.to_i
 
 
-print "Введите параметр: "
+puts "Введите параметр: "
 v = gets.chomp
+while v != "0"
+  main(v, num)
+  v = gets.chomp
+end
 
-main(v, num)
+
+
 
