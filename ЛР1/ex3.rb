@@ -24,4 +24,10 @@ unless value < 100 then
 else
     value = value + 100
 end
+gets
+
+hk = 'up'
+x = -1.0
+x = x + 2.5 unless hk == 'up'
+gets
 
