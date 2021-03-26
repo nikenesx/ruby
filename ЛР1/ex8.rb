@@ -56,7 +56,7 @@ end
 def maxd(v)
   maxdel = 1
   for i in 2..v-1 do
-    if v % i == 0 and is_prime(i) == true and i > maxdel then
+    if v % i == 0 and is_s1mple(i) and i > maxdel then
       maxdel = i
     end
   end
@@ -77,12 +77,13 @@ def proizvd(n)
 end
 
 def nod(a, b)
-    while a != b:
+    while a != b do
         if a > b
             a = a - b
         else
             b = b - a 
-        end       
+        end
+    end
     return a
 end
 
@@ -90,7 +91,7 @@ end
 def f(num)
   max_d = 1
   for i in 1..num do
-    if num % i == 0 and is_simple(i) == false and i > max_d and i % 2 > 0
+    if num % i == 0 and !is_s1mple(i) and i > max_d and i % 2 > 0
       max_d = i
     end
   end
@@ -112,7 +113,7 @@ def main(v, num)
   when '2'
     puts mn(num)
   when '3'
-    put min(num, 10)
+    puts min(num, 10)
   when '4'
     puts max(num, 0)
   when '5'
@@ -126,16 +127,19 @@ def main(v, num)
   else
     abt(num)
   end
-  gets
 end
 
-
-print "Введите число: "
+puts "Введите число: "
 num = gets.to_i
 
 
-print "Введите параметр: "
+puts "Введите параметр: "
 v = gets.chomp
+while v != "0"
+  main(v, num)
+  v = gets.chomp
+end
 
-main(v, num)
+
+
 
