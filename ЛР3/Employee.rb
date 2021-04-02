@@ -2,7 +2,6 @@ class Employee
 	attr_accessor :name,
 				  :birthDate,
 				  :adress,
-				  :email,
 				  :pasport,
 				  :specialty,
 				  :workExperience,
@@ -10,7 +9,8 @@ class Employee
 				  :position,
 				  :lastSalary
 
-	attr_reader :phoneNumber
+	attr_reader :phoneNumber,
+				:email
 
 
 	def initialize(*args)
@@ -19,7 +19,7 @@ class Employee
 			@birthDate = args[1]
 			self.phoneNumber = args[2]
 			@adress = args[3]
-			@email = args[4]
+			self.email = args[4]
 			@pasport = args[5]
 			@specialty = args[6]
 			@workExperience = args[7]
@@ -44,6 +44,11 @@ class Employee
 	end
 
 
+	def email=(val)
+		@email = correctEmail(val)
+	end
+
+
 	def correctNumber(number)
 		if isNumberRussian(number)
 			number = number.delete(' ()+\-')
@@ -55,9 +60,24 @@ class Employee
 	end
 
 
+	def correctEmail(email)
+		if isEmail(email)
+			email.downcase.delete(" ")
+		else
+			raise "Некорректный email."
+		end
+	end
+
+
 	def isNumberRussian(number)
 		regRusNumber = Regexp.compile(/(^\s*(\+?7|8)\s*\(?\s*\d{3}\)?\s*\d\s*\d\s*\d\s*-?\s*\d\s*\d\s*-?\s*\d\s*\d\s*$)/)
 		return number.match?(regRusNumber)
+	end
+
+
+	def isEmail line
+		regIsEmail = Regexp.compile(/(^\s*\w{2,254}@[a-zA-Z]{2,255}\.[a-zA-Z]{2,63}\s*)/)
+		line.match?(regIsEmail)
 	end
 
 
