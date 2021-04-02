@@ -1,4 +1,4 @@
-class Employe
+class Employee
 
 	attr_accessor :name,
 				  :birthDate,
@@ -15,7 +15,7 @@ class Employe
 	def initialize *args
 		if args.length == 8 or args.length == 11
 
-			if args[7] == 0
+			if args[7] == '0'
 				@name = args[0]
 				@birthDate = args[1]
 				@phoneNumber = args[2]
@@ -25,7 +25,7 @@ class Employe
 				@specialty = args[6]
 				@workExperience = args[7]
 
-			elsif args[7] > 0
+			elsif args[7].to_i > 0
 				@nameLastWork = args[8]
 				@position = args[9]
 				@lastSalary = args[10]
