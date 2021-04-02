@@ -2,6 +2,14 @@ require_relative 'Employee'
 
 class TestEmployee < Employee
 
+	attr_accessor :newemp
+
+	def initialize
+		@newemp = Employee.new("Евгений Жидков Алексеевич", "25.05.1997", "79183456734",
+			"г. Краснодар ул. Ленина д.23", "evgesha@mail.ru", "0520 265395",
+			"Системный администратор", "0")
+	end
+
 	def printEmployers
 		puts "Данные сотрудника\nИмя Фамилия Отчество: #{@name}\nДата рождения: #{@birthDate}
 Номер телефона: #{@phoneNumber}\nАдрес: #{@adress}\nЭлектронная почта: #{@email}\nПаспорт: #{@pasport}
