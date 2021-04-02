@@ -69,10 +69,12 @@ class Employee
 			if name.strip != nil
 				name.strip!
 			end
-			name = name.gsub(/\s*-\s*/, "-").gsub(/\s+/, " ").downcase!.chars
+			name = name.gsub(/\s*-\s*/, "-").gsub(/\s+/, " ")
+			name.downcase! if name.downcase! != nil
+			name = name.chars
 			name.each_index {|i| name[i].upcase! if name[i-1] == " " || name[i-1] == "-" || i == 0}
 			name = name.join
-			if name.match?(/^[а-яА-Я]+(-[а-яА-Я]+)?\s[а-яА-Я]+(-[а-яА-Я]+)?\s[а-яА-Я]+\s[а-яА-Я]+/)
+			if name.match?(/^[а-яА-Яa-zA-Z]+(-[а-яА-Яa-zA-Z]+)?\s[а-яА-Яa-zA-Z]+(-[а-яА-Яa-zA-Z]+)?\s[а-яА-Яa-zA-Z]+\s[а-яА-Яa-zA-Z]+/)
 				name[name.rindex(" ") + 1] = name[name.rindex(" ") + 1].downcase
 			end
 			name
@@ -86,9 +88,10 @@ class Employee
 		if isDate(date)
 			date = date.delete(' ')
 			temp = date.split(".")
-			temp[0] = "0" + temp[0] if temp[0].length == 1
-			temp[1] = "0" + temp[1] if temp[1].length == 1
-			temp[2] = "20" + temp[2] if temp[2].length == 2
+			temp[0] = "0" + temp[0] if temp[0].strip.length == 1
+			temp[1] = "0" + temp[1] if temp[1].strip.length == 1
+			temp[2] = "20" + temp[2] if temp[2].strip.length == 2
+			temp[2] = "200" + temp[2] if temp[2].strip.length == 1
 			date = ""
 			temp.each {|el| date += el + "."}
 			date[0..date.length - 2]
@@ -129,8 +132,7 @@ class Employee
 
 
 	def isName(name)
-		regIsName = Regexp.compile(/(^\s*[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*([а-яА-Я]+)?\s*$)/)
-		name.strip! if name.strip != nil
+		regIsName = Regexp.compile(/(\s*^[а-яА-Яa-zA-Z]+\s*(-\s*[а-яА-Яa-zA-Z]+)?\s+[а-яА-Яa-zA-Z]+\s*(-\s*[а-яА-Яa-zA-Z]+)?\s+[а-яА-Яa-zA-Z]+\s*([а-яА-Яa-zA-Z]+)?\s*$)/)
 		name.match?(regIsName)
 	end
 
@@ -142,7 +144,7 @@ class Employee
 
 
 	def isNumberRussian(number)
-		regRusNumber = Regexp.compile(/(^\s*(\+?7|8)\s*\(?\s*\d{3}\)?\s*\d\s*\d\s*\d\s*-?\s*\d\s*\d\s*-?\s*\d\s*\d\s*$)/)
+		regRusNumber = Regexp.compile(/(^\s*(\+?7|8)\s*\(?\s*\d{3}\)?-?\s*\d\s*\d\s*\d\s*-?\s*\d\s*\d\s*-?\s*\d\s*\d\s*$)/)
 		return number.match?(regRusNumber)
 	end
 
