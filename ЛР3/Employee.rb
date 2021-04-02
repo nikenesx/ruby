@@ -1,7 +1,5 @@
 class Employee
-	attr_accessor :birthDate,
-				  :adress,
-				  :pasport,
+	attr_accessor :adress,
 				  :specialty,
 				  :workExperience,
 				  :nameLastWork,
@@ -9,18 +7,20 @@ class Employee
 				  :lastSalary
 
 	attr_reader :name,
+				:birthDate,
 				:phoneNumber,
-				:email
+				:email,
+				:pasport
 
 
 	def initialize(*args)
 		if args.length == 8 or args.length == 11
 			self.name = args[0]
-			@birthDate = args[1]
+			self.birthDate = args[1]
 			self.phoneNumber = args[2]
 			@adress = args[3]
 			self.email = args[4]
-			@pasport = args[5]
+			self.pasport = args[5]
 			@specialty = args[6]
 			@workExperience = args[7]
 
@@ -44,6 +44,11 @@ class Employee
 	end
 
 
+	def birthDate=(val)
+		@birthDate = correctDate(val)
+	end
+
+
 	def phoneNumber=(val)
 		@phoneNumber = correctNumber(val)
 	end
@@ -51,6 +56,11 @@ class Employee
 
 	def email=(val)
 		@email = correctEmail(val)
+	end
+
+
+	def pasport=(val)
+		@pasport = correctPasport(val)
 	end
 
 
@@ -68,6 +78,22 @@ class Employee
 			name
 		else
 			raise "Некорректный формат имени."
+		end
+	end
+
+
+	def correctDate(date)
+		if isDate(date)
+			date = date.delete(' ')
+			temp = date.split(".")
+			temp[0] = "0" + temp[0] if temp[0].length == 1
+			temp[1] = "0" + temp[1] if temp[1].length == 1
+			temp[2] = "20" + temp[2] if temp[2].length == 2
+			date = ""
+			temp.each {|el| date += el + "."}
+			date[0..date.length - 2]
+		else
+			raise "Неверный формат даты"
 		end
 	end
 
@@ -92,10 +118,26 @@ class Employee
 	end
 
 
+	def correctPasport data
+		if isPasport(data)
+			data = data.delete(' ')
+			data.insert(2, ' ').insert(5, ' ')
+		else
+			raise "Неверный формат паспортных данных."
+		end
+	end
+
+
 	def isName(name)
-		regIsName = Regexp.compile(/(^[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*([а-яА-Я]+)?$)/)
+		regIsName = Regexp.compile(/(^\s*[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*([а-яА-Я]+)?\s*$)/)
 		name.strip! if name.strip != nil
 		name.match?(regIsName)
+	end
+
+
+	def isDate(date)
+		regIsDate = Regexp.compile(/(^\s*([12][0-9]|0?[1-9]|3[01])\s*\.\s*([1][0-2]|0?[1-9])\s*\.\s*(19[1-9][0-9]|20[0-1][0-9]|202[01]|1[0-9]|0?[0-9]|21)\s*$)/)
+		date.match?(regIsDate)
 	end
 
 
@@ -108,6 +150,12 @@ class Employee
 	def isEmail(line)
 		regIsEmail = Regexp.compile(/(^\s*\w{2,254}@[a-zA-Z]{2,255}\.[a-zA-Z]{2,63}\s*)/)
 		line.match?(regIsEmail)
+	end
+
+
+	def isPasport(data)
+		regIsPasport = Regexp.compile(/(^\s*(\d\s*){10}\s*$)/)
+		data.match?(regIsPasport)
 	end
 
 
