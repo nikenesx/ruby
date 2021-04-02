@@ -28,7 +28,7 @@ class Employee
 				@position = args[9]
 				@lastSalary = args[10]
 
-			elsif args[7].to_i < 0
+			elsif args[7].to_i < 0 or args[7].to_i > 80
 				raise 'Неверно введено поле \'Опыт работы\'.'
 			end
 
