@@ -1,6 +1,5 @@
 class Employee
-	attr_accessor :name,
-				  :birthDate,
+	attr_accessor :birthDate,
 				  :adress,
 				  :pasport,
 				  :specialty,
@@ -9,13 +8,14 @@ class Employee
 				  :position,
 				  :lastSalary
 
-	attr_reader :phoneNumber,
+	attr_reader :name,
+				:phoneNumber,
 				:email
 
 
 	def initialize(*args)
 		if args.length == 8 or args.length == 11
-			@name = args[0]
+			self.name = args[0]
 			@birthDate = args[1]
 			self.phoneNumber = args[2]
 			@adress = args[3]
@@ -39,6 +39,11 @@ class Employee
 	end
 
 
+	def name=(val)
+		@name = correctName(val)
+	end
+
+
 	def phoneNumber=(val)
 		@phoneNumber = correctNumber(val)
 	end
@@ -46,6 +51,24 @@ class Employee
 
 	def email=(val)
 		@email = correctEmail(val)
+	end
+
+
+	def correctName(name)
+		if isName(name)
+			if name.strip != nil
+				name.strip!
+			end
+			name = name.gsub(/\s*-\s*/, "-").gsub(/\s+/, " ").downcase!.chars
+			name.each_index {|i| name[i].upcase! if name[i-1] == " " || name[i-1] == "-" || i == 0}
+			name = name.join
+			if name.match?(/^[а-яА-Я]+(-[а-яА-Я]+)?\s[а-яА-Я]+(-[а-яА-Я]+)?\s[а-яА-Я]+\s[а-яА-Я]+/)
+				name[name.rindex(" ") + 1] = name[name.rindex(" ") + 1].downcase
+			end
+			name
+		else
+			raise "Некорректный формат имени."
+		end
 	end
 
 
@@ -69,13 +92,20 @@ class Employee
 	end
 
 
+	def isName(name)
+		regIsName = Regexp.compile(/(^[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*(-\s*[а-яА-Я]+)?\s*[а-яА-Я]+\s*([а-яА-Я]+)?$)/)
+		name.strip! if name.strip != nil
+		name.match?(regIsName)
+	end
+
+
 	def isNumberRussian(number)
 		regRusNumber = Regexp.compile(/(^\s*(\+?7|8)\s*\(?\s*\d{3}\)?\s*\d\s*\d\s*\d\s*-?\s*\d\s*\d\s*-?\s*\d\s*\d\s*$)/)
 		return number.match?(regRusNumber)
 	end
 
 
-	def isEmail line
+	def isEmail(line)
 		regIsEmail = Regexp.compile(/(^\s*\w{2,254}@[a-zA-Z]{2,255}\.[a-zA-Z]{2,63}\s*)/)
 		line.match?(regIsEmail)
 	end
