@@ -1,4 +1,4 @@
-require 'Employee'
+require_relative 'Employee'
 
 employe1 = Employee.new("Евгений Жидков Алексеевич", "25.05.1997", "79183456734",
 						   "г. Краснодар ул. Ленина д.23", "evgesha@mail.ru", "0520 265395",
