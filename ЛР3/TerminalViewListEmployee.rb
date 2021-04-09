@@ -13,11 +13,10 @@ class TerminalViewListEmployee < TestEmployee
 	@@key = 'DOG'
 
 	def initialize
-		@list_of_emp = []
+		@@list_of_emp = []
 	end
 
 	def inputListEmployee
-		employersList = Array.new
 		nextemp = true
 
 		while nextemp
@@ -136,32 +135,32 @@ class TerminalViewListEmployee < TestEmployee
 
 
 	def outinfile
-		file = File.open('employers.txt', 'w')
+		file = File.open('employers.txt', 'w', encoding: 'utf-8')
 		tempstr = ''
 		s = "Name".ljust(30) +
 			+ "Birth date".ljust(12) +
 			+ "Phone number".ljust(15) +
-			+ "Adres".ljust(25) +
-			+ "Email".ljust(20) +
+			+ "Adres".ljust(35) +
+			+ "Email".ljust(25) +
 			+ "Pasport".ljust(12) +
-			+ "Specialty".ljust(15) +
-			+ "Work exxperience".ljust(18) +
-			+ "Last work name".ljust(25) +
-			+ "Position".ljust(15) +
+			+ "Specialty".ljust(20) +
+			+ "Work experience".ljust(18) +
+			+ "Last work name".ljust(30) +
+			+ "Position".ljust(17) +
 			+ "Salary".ljust(10) + "\n"
 		for elem in @list_of_emp
 			tempstr += elem.name.ljust(30)
 			tempstr += elem.birthDate.ljust(12)
 			tempstr += elem.phoneNumber.ljust(15)
-			tempstr += elem.adress.ljust(25)
-			tempstr += elem.email.ljust(20)
+			tempstr += elem.adress.ljust(35)
+			tempstr += elem.email.ljust(25)
 			pass = shifr(elem.pasport)
 			tempstr += pass.ljust(12)
-			tempstr += elem.specialty.ljust(15)
+			tempstr += elem.specialty.ljust(20)
 			tempstr += elem.workExperience.ljust(18)
 			if elem.workExperience != '0'
-				tempstr += elem.nameLastWork.ljust(25)
-				tempstr += elem.position.ljust(15)
+				tempstr += elem.nameLastWork.ljust(30)
+				tempstr += elem.position.ljust(17)
 				tempstr += elem.lastSalary.ljust(10)
 			end
 			tempstr += "\n"
@@ -169,6 +168,31 @@ class TerminalViewListEmployee < TestEmployee
 			tempstr = ""
 		end
 		file.write(s)
+	end
+
+
+	def readfile
+		file = File.open('employers_to_read.txt', 'r', encoding:'utf-8')
+		conffile = file.readlines
+		for i in 1...conffile.size
+			emp = TestEmployee.new
+			emp.name = conffile[i][0,30].strip
+			emp.birthDate = conffile[i][30,12].strip
+			emp.phoneNumber = conffile[i][42,15].strip
+			emp.adress = conffile[i][57,35].strip
+			emp.email = conffile[i][92, 25].strip
+			emp.pasport = deshift(conffile[i][117, 12].strip)
+			emp.specialty = conffile[i][129,20].strip
+			emp.workExperience = conffile[i][149,18].strip
+			if emp.workExperience != '0'
+				emp.nameLastWork = conffile[i][167,30].strip
+				emp.position = conffile[i][197,17].strip
+				emp.lastSalary = conffile[i][214,10].strip
+			end
+			@list_of_emp.push(emp)
+			emp.printEmployers
+			puts '----------------------'
+		end
 	end
 
 end
