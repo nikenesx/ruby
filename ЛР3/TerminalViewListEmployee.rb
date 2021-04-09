@@ -11,10 +11,8 @@ class TerminalViewListEmployee < TestEmployee
 	attr_accessor :list_of_emp
 
 	@@key = 'DOG'
+	@@list_of_emp = []
 
-	def initialize
-		@@list_of_emp = []
-	end
 
 	def inputListEmployee
 		nextemp = true
@@ -98,7 +96,7 @@ class TerminalViewListEmployee < TestEmployee
 				emp.lastSalary = data
 			end
 
-			@list_of_emp.push(emp)
+			@@list_of_emp.push(emp)
 			puts "Ввести данные еще одного сотудника?\n1. Да\n2. Нет"
 			f = gets.strip
 			nextemp = false if f == "2" || f == "Нет"
@@ -121,16 +119,18 @@ class TerminalViewListEmployee < TestEmployee
 	end
 
 
-	def deshift(line)
-		alph = 'A/B*C+D-E!F?G&H0I1J2K3L4M5N6O7P8Q9R@S:T>U<V#W%X=YZ'.chars
-		line = line.chars
-		kk = @@key * (alph.length / @@key.length + 1)
-		kk = kk[0, line.length]
-		res = Array.new
-		for i in 0..line.length - 1
-			res.push((alph.index(line[i]) - alph.index(kk[i]) + 26) % 26)
+	def deshift(line, key)
+		if key == @@key
+			alph = 'A/B*C+D-E!F?G&H0I1J2K3L4M5N6O7P8Q9R@S:T>U<V#W%X=YZ'.chars
+			line = line.chars
+			kk = key * (alph.length / @@key.length + 1)
+			kk = kk[0, line.length]
+			res = Array.new
+			for i in 0..line.length - 1
+				res.push((alph.index(line[i]) - alph.index(kk[i]) + 26) % 26)
+			end
+			res.join('')
 		end
-		res.join('')
 	end
 
 
@@ -172,26 +172,37 @@ class TerminalViewListEmployee < TestEmployee
 
 
 	def readfile
-		file = File.open('employers_to_read.txt', 'r', encoding:'utf-8')
-		conffile = file.readlines
-		for i in 1...conffile.size
-			emp = TestEmployee.new
-			emp.name = conffile[i][0,30].strip
-			emp.birthDate = conffile[i][30,12].strip
-			emp.phoneNumber = conffile[i][42,15].strip
-			emp.adress = conffile[i][57,35].strip
-			emp.email = conffile[i][92, 25].strip
-			emp.pasport = deshift(conffile[i][117, 12].strip)
-			emp.specialty = conffile[i][129,20].strip
-			emp.workExperience = conffile[i][149,18].strip
-			if emp.workExperience != '0'
-				emp.nameLastWork = conffile[i][167,30].strip
-				emp.position = conffile[i][197,17].strip
-				emp.lastSalary = conffile[i][214,10].strip
+		puts "Введите ключ:"
+		keey = gets.strip
+		while keey != @@key
+			puts 'Ключ неверен. повторите попытку: '
+			keey = gets.strip
+			if keey == '0'
+				break
 			end
-			@list_of_emp.push(emp)
-			emp.printEmployers
-			puts '----------------------'
+		end
+		if keey == @@key
+			file = File.open('employers_to_read.txt', 'r', encoding:'utf-8')
+			conffile = file.readlines
+			for i in 1...conffile.size
+				emp = TestEmployee.new
+				emp.name = conffile[i][0,30].strip
+				emp.birthDate = conffile[i][30,12].strip
+				emp.phoneNumber = conffile[i][42,15].strip
+				emp.adress = conffile[i][57,35].strip
+				emp.email = conffile[i][92, 25].strip
+				emp.pasport = deshift(conffile[i][117, 12].strip, keey)
+				emp.specialty = conffile[i][129,20].strip
+				emp.workExperience = conffile[i][149,18].strip
+				if emp.workExperience != '0'
+					emp.nameLastWork = conffile[i][167,30].strip
+					emp.position = conffile[i][197,17].strip
+					emp.lastSalary = conffile[i][214,10].strip
+				end
+				@@list_of_emp.push(emp)
+				emp.printEmployers
+				puts '----------------------'
+			end
 		end
 	end
 
