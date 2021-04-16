@@ -126,4 +126,16 @@ class ListEmployee < TerminalViewListEmployee
 			print("---------------\n")
 		end
 	end
+
+
+	def find_by_name(name)
+		raise "Список работников пуст" if @@list_emp.length == 0
+		finded_emp = nil
+		for employe in @@list_emp
+			if employe.name == name
+				finded_emp = employe
+			end
+		end
+		finded_emp
+	end
 end
