@@ -37,6 +37,7 @@ class ListEmployee < TerminalViewListEmployee
 		end
 	end
 
+
 	def inputEmployee
 		emp = TestEmployee.new
 
@@ -115,7 +116,6 @@ class ListEmployee < TerminalViewListEmployee
 			data = gets.strip
 			emp.lastSalary = data
 		end
-
 		@@list_emp.push(emp)
 	end
 
@@ -130,9 +130,49 @@ class ListEmployee < TerminalViewListEmployee
 
 	def find_by_name(name)
 		raise "Список работников пуст" if @@list_emp.length == 0
+		raise "Неверный формат аргумента" if not isName(name)
 		finded_emp = nil
 		for employe in @@list_emp
 			if employe.name == name
+				finded_emp = employe
+			end
+		end
+		finded_emp
+	end
+
+
+	def find_by_email(email)
+		raise "Список работников пуст" if @@list_emp.length == 0
+		raise "Неверный формат аргумента" if not isEmail(name)
+		finded_emp = nil
+		for employe in @@list_emp
+			if employe.email == email
+				finded_emp = employe
+			end
+		end
+		finded_emp
+	end
+
+
+	def find_by_number(number)
+		raise "Список работников пуст" if @@list_emp.length == 0
+		raise "Неверный формат аргумента" if not isNumberRussian(name)
+		finded_emp = nil
+		for employe in @@list_emp
+			if employe.phoneNumber == number
+				finded_emp = employe
+			end
+		end
+		finded_emp
+	end
+
+
+	def find_by_pasport(pasport)
+		raise "Список работников пуст" if @@list_emp.length == 0
+		raise "Неверный формат аргумента" if not isPasport(name)
+		finded_emp = nil
+		for employe in @@list_emp
+			if employe.pasport == pasport
 				finded_emp = employe
 			end
 		end
