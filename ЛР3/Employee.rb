@@ -1,4 +1,5 @@
 class Employee
+
 	attr_accessor :adress,
 				  :specialty,
 				  :workExperience,
@@ -22,7 +23,7 @@ class Employee
 			self.email = args[4]
 			self.pasport = args[5]
 			@specialty = args[6]
-			@workExperience = args[7]
+			self.workExperience = args[7]
 
 			if args[7].to_i > 0 and args[7].to_i < 80
 				@nameLastWork = args[8]
@@ -61,6 +62,14 @@ class Employee
 
 	def pasport=(val)
 		@pasport = correctPasport(val)
+	end
+
+
+	def workExperience=(val)
+		if val.to_i < 0
+			raise "Неверный формат поля 'Опыт работы'"
+		end
+		@workExperience = val
 	end
 
 
@@ -144,7 +153,7 @@ class Employee
 
 
 	def isNumberRussian(number)
-		regRusNumber = Regexp.compile(/(^\s*(\+?7|8)\s*\(?\s*\d{3}\)?-?\s*\d\s*\d\s*\d\s*-?\s*\d\s*\d\s*-?\s*\d\s*\d\s*$)/)
+		regRusNumber = Regexp.compile(/(^\s*(\+?7|8)\s*\-?\s*\(?\s*\d{3}\)?-?\s*\d\s*\d\s*\d\s*-?\s*\d\s*\d\s*-?\s*\d\s*\d\s*$)/)
 		return number.match?(regRusNumber)
 	end
 
@@ -161,13 +170,23 @@ class Employee
 	end
 
 
-	def printEmployers
-		puts @name, @birthDate, @phoneNumber, @adress, @email, @pasport,
-			 @specialty, @workExperience
-
+	def to_s
+		str = '-'* 65 + "\n" +
+				+ format("%25s | %s\n", "Имя", @name) +
+				+ format("%25s | %s\n", "Дата рождения", @birthDate) +
+				+ format("%25s | %s\n", "Номер телефона", @phoneNumber) +
+				+ format("%25s | %s\n", "Адрес", @adress) +
+				+ format("%25s | %s\n", "Email", @email) +
+				+ format("%25s | %s\n", "Паспортные данные", @pasport) +
+				+ format("%25s | %s\n", "Специальность", @specialty) +
+				+ format("%25s | %s\n", "Опыт работы", @workExperience)
 		if @workExperience != "0"
-			puts @nameLastWork, @position, @lastSalary
+			str += + format("%25s | %s\n", "Наз. пред. места работы", @nameLastWork) +
+						+ format("%25s | %s\n", "Должность на пред. работе", @position) +
+						+ format("%25s | %s\n", "Зарплата на пред. работе", @lastSalary)
 		end
+		str += '-'* 65
+		str
 	end
 end
 
